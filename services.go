@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-type getServicesResponse struct {
+type GetServicesResponse struct {
 	ID         int    `json:"id"`
 	Title      string `json:"title"`
 	Status     int    `json:"status"`
@@ -19,13 +19,13 @@ type getServicesResponse struct {
 	UpdateTime int64  `json:"update_time"`
 }
 
-func (sky *Skyroom) GetServices() ([]getServicesResponse, error) {
+func (sky *Skyroom) GetServices() ([]GetServicesResponse, error) {
 	result, err := sky.Post("getServices", make(map[string]string))
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	var services []getServicesResponse
+	var services []GetServicesResponse
 
 	if err := json.Unmarshal(result, &services); err != nil {
 		fmt.Println(err)

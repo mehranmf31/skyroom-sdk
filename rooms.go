@@ -5,15 +5,15 @@ import (
 	"fmt"
 )
 
-type GetRoomByIDRequest struct {
+type getRoomByIDRequest struct {
 	RoomID int `json:"room_id"`
 }
 
-type GetRoomByNameRequest struct {
+type getRoomByNameRequest struct {
 	Name string `json:"name"`
 }
 
-type GetRoomURLRequest struct {
+type getRoomURLRequest struct {
 	RoomID   int    `json:"room_id"`
 	Language string `json:"language,omitempty"`
 }
@@ -35,15 +35,15 @@ type UpdateRoomRequest struct {
 	MaxUsers     int    `json:"max_users,omitempty"`
 }
 
-type DeleteRoomRequest struct {
+type deleteRoomRequest struct {
 	RoomID int `json:"room_id"`
 }
 
-type GetRoomUsersRequest struct {
+type getRoomUsersRequest struct {
 	RoomID int `json:"room_id"`
 }
 
-type AddRoomUsersRequest struct {
+type addRoomUsersRequest struct {
 	RoomID int          `json:"room_id"`
 	Users  []UserAccess `json:"users"`
 }
@@ -53,12 +53,12 @@ type UserAccess struct {
 	Access int `json:"access,omitempty"`
 }
 
-type RemoveRoomUsersRequest struct {
+type removeRoomUsersRequest struct {
 	RoomID int   `json:"room_id"`
 	Users  []int `json:"users"`
 }
 
-type UpdateRoomUsersRequest struct {
+type updateRoomUsersRequest struct {
 	RoomID int `json:"room_id"`
 	UserID int `json:"user_id"`
 	Access int `json:"access"`
@@ -93,13 +93,7 @@ type GetRoomResponse struct {
 
 type CountRoomsResponse int
 
-type GetRoomURLResponse string
-
 type CreateRoomResponse int
-
-type UpdateRoomResponse int
-
-type DeleteRoomResponse int
 
 type GetRoomUsersResponse struct {
 	UserID   int    `json:"user_id"`
@@ -107,12 +101,6 @@ type GetRoomUsersResponse struct {
 	Nickname string `json:"nickname"`
 	Access   int    `json:"access"`
 }
-
-type AddRoomUsersResponse int
-
-type RemoveRoomUsersResponse int
-
-type UpdateRoomUsersResponse int
 
 func (sky *Skyroom) GetRooms() ([]GetRoomsResponse, error) {
 	result, err := sky.Post("getRooms", make(map[string]string))
@@ -147,7 +135,7 @@ func (sky *Skyroom) CountRooms() (CountRoomsResponse, error) {
 }
 
 func (sky *Skyroom) GetRoomByID(id int) (GetRoomResponse, error) {
-	request := GetRoomByIDRequest{RoomID: id}
+	request := getRoomByIDRequest{RoomID: id}
 
 	result, err := sky.Post("getRoom", request)
 	if err != nil {
@@ -165,7 +153,7 @@ func (sky *Skyroom) GetRoomByID(id int) (GetRoomResponse, error) {
 }
 
 func (sky *Skyroom) GetRoomByName(name string) (GetRoomResponse, error) {
-	request := GetRoomByNameRequest{Name: name}
+	request := getRoomByNameRequest{Name: name}
 
 	result, err := sky.Post("getRoom", request)
 	if err != nil {
@@ -182,15 +170,15 @@ func (sky *Skyroom) GetRoomByName(name string) (GetRoomResponse, error) {
 	return room, nil
 }
 
-func (sky *Skyroom) GetRoomURL(roomID int, language ...string) (GetRoomURLResponse, error) {
-	request := GetRoomURLRequest{RoomID: roomID, Language: language[0]}
+func (sky *Skyroom) GetRoomURL(roomID int, language ...string) (string, error) {
+	request := getRoomURLRequest{RoomID: roomID, Language: language[0]}
 
 	result, err := sky.Post("getRoomUrl", request)
 	if err != nil {
 		return "", err
 	}
 
-	var room GetRoomURLResponse
+	var room string
 
 	if err := json.Unmarshal(result, &room); err != nil {
 		fmt.Println(err)
@@ -226,7 +214,7 @@ func (sky *Skyroom) UpdateRoom(room UpdateRoomRequest) error {
 }
 
 func (sky *Skyroom) DeleteRoom(roomID int) error {
-	room := DeleteRoomRequest{RoomID: roomID}
+	room := deleteRoomRequest{RoomID: roomID}
 	_, err := sky.Post("deleteRoom", room)
 	if err != nil {
 		return err
@@ -236,7 +224,7 @@ func (sky *Skyroom) DeleteRoom(roomID int) error {
 }
 
 func (sky *Skyroom) GetRoomUsers(roomID int) ([]GetRoomUsersResponse, error) {
-	room := GetRoomUsersRequest{RoomID: roomID}
+	room := getRoomUsersRequest{RoomID: roomID}
 	result, err := sky.Post("getRoomUsers", room)
 	if err != nil {
 		return []GetRoomUsersResponse{}, err
@@ -253,7 +241,7 @@ func (sky *Skyroom) GetRoomUsers(roomID int) ([]GetRoomUsersResponse, error) {
 }
 
 func (sky *Skyroom) AddRoomUsers(roomID int, users []UserAccess) error {
-	request := AddRoomUsersRequest{RoomID: roomID, Users: users}
+	request := addRoomUsersRequest{RoomID: roomID, Users: users}
 
 	_, err := sky.Post("addRoomUsers", request)
 
@@ -265,7 +253,7 @@ func (sky *Skyroom) AddRoomUsers(roomID int, users []UserAccess) error {
 }
 
 func (sky *Skyroom) RemoveRoomUsers(roomID int, users []int) error {
-	request := RemoveRoomUsersRequest{RoomID: roomID, Users: users}
+	request := removeRoomUsersRequest{RoomID: roomID, Users: users}
 	_, err := sky.Post("removeRoomUsers", request)
 
 	if err != nil {
@@ -276,7 +264,7 @@ func (sky *Skyroom) RemoveRoomUsers(roomID int, users []int) error {
 }
 
 func (sky *Skyroom) UpdateRoomUser(roomID int, user UserAccess) error {
-	request := UpdateRoomUsersRequest{RoomID: roomID, UserID: user.UserID, Access: user.Access}
+	request := updateRoomUsersRequest{RoomID: roomID, UserID: user.UserID, Access: user.Access}
 
 	_, err := sky.Post("updateRoomUser", request)
 
