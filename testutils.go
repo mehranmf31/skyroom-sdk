@@ -1,10 +1,10 @@
 package skyroom
 
-var APIKey = "apikey"
-var RoomID = 1
-var RoomName = "test-room-name"
-var RoomToDelete = 1
-var UserID = 1
-var UserName = "test-user-name"
-var UserToDelete = 1
-var UsersToDelete = 1
+var apiKey = "apikey"
+var roomID = 1
+var roomName = "test-room-name"
+var roomToDelete = 1
+var userID = 1
+var userName = "test-user-name"
+var userToDelete = 1
+var usersToDelete = 1

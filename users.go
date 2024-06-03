@@ -2,11 +2,11 @@ package skyroom
 
 import "encoding/json"
 
-type GetUserByNameRequest struct {
+type getUserByNameRequest struct {
 	Username string `json:"username"`
 }
 
-type GetUserByIDRequest struct {
+type getUserByIDRequest struct {
 	UserID int `json:"user_id"`
 }
 
@@ -27,19 +27,19 @@ type UpdateUserRequest struct {
 	IsPublic bool   `json:"is_public,omitempty"`
 }
 
-type DeleteUserRequest struct {
+type deleteUserRequest struct {
 	UserID int `json:"user_id"`
 }
 
-type DeleteUsersRequest struct {
+type deleteUsersRequest struct {
 	Users []int `json:"users"`
 }
 
-type GetUserRoomsRequest struct {
+type getUserRoomsRequest struct {
 	UserID int `json:"user_id"`
 }
 
-type AddUserRoomsRequest struct {
+type addUserRoomsRequest struct {
 	UserID int              `json:"user_id"`
 	Rooms  []UserRoomAccess `json:"rooms"`
 }
@@ -49,7 +49,7 @@ type UserRoomAccess struct {
 	Access int `json:"access,omitempty"`
 }
 
-type RemoveUserRoomsRequest struct {
+type removeUserRoomsRequest struct {
 	UserID int   `json:"user_id"`
 	Rooms  []int `json:"rooms"`
 }
@@ -112,7 +112,7 @@ func (sky *Skyroom) GetUsers() ([]GetUsersResponse, error) {
 }
 
 func (sky *Skyroom) GetUserByID(userID int) (GetUserResponse, error) {
-	request := GetUserByIDRequest{
+	request := getUserByIDRequest{
 		UserID: userID,
 	}
 
@@ -128,7 +128,7 @@ func (sky *Skyroom) GetUserByID(userID int) (GetUserResponse, error) {
 }
 
 func (sky *Skyroom) GetUserByUsername(username string) (GetUserResponse, error) {
-	request := GetUserByNameRequest{
+	request := getUserByNameRequest{
 		Username: username,
 	}
 
@@ -168,7 +168,7 @@ func (sky *Skyroom) UpdateUser(request UpdateUserRequest) error {
 }
 
 func (sky *Skyroom) DeleteUser(userId int) error {
-	request := DeleteUserRequest{
+	request := deleteUserRequest{
 		UserID: userId,
 	}
 
@@ -181,7 +181,7 @@ func (sky *Skyroom) DeleteUser(userId int) error {
 }
 
 func (sky *Skyroom) DeleteUsers(users []int) error {
-	request := DeleteUsersRequest{
+	request := deleteUsersRequest{
 		Users: users,
 	}
 
@@ -194,7 +194,7 @@ func (sky *Skyroom) DeleteUsers(users []int) error {
 }
 
 func (sky *Skyroom) GetUserRooms(userId int) ([]GetUserRoomsResponse, error) {
-	request := GetUserRoomsRequest{
+	request := getUserRoomsRequest{
 		UserID: userId,
 	}
 	result, err := sky.Post("getUserRooms", request)
@@ -209,7 +209,7 @@ func (sky *Skyroom) GetUserRooms(userId int) ([]GetUserRoomsResponse, error) {
 }
 
 func (sky *Skyroom) AddUserRooms(userID int, rooms []UserRoomAccess) error {
-	request := AddUserRoomsRequest{
+	request := addUserRoomsRequest{
 		UserID: userID,
 		Rooms:  rooms,
 	}
@@ -221,7 +221,7 @@ func (sky *Skyroom) AddUserRooms(userID int, rooms []UserRoomAccess) error {
 }
 
 func (sky *Skyroom) removeUserRooms(userID int, rooms []int) error {
-	request := RemoveUserRoomsRequest{
+	request := removeUserRoomsRequest{
 		UserID: userID,
 		Rooms:  rooms,
 	}

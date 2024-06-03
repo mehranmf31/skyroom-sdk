@@ -5,7 +5,7 @@ import (
 )
 
 func TestSkyroom_GetRooms(t *testing.T) {
-	sky := New(APIKey)
+	sky := New(apiKey)
 	result, err := sky.GetRooms()
 
 	if err != nil {
@@ -15,7 +15,7 @@ func TestSkyroom_GetRooms(t *testing.T) {
 }
 
 func TestSkyroom_CountRooms(t *testing.T) {
-	sky := New(APIKey)
+	sky := New(apiKey)
 	result, err := sky.CountRooms()
 
 	if err != nil {
@@ -25,8 +25,8 @@ func TestSkyroom_CountRooms(t *testing.T) {
 }
 
 func TestSkyroom_GetRoomByID(t *testing.T) {
-	sky := New(APIKey)
-	result, err := sky.GetRoomByID(RoomID)
+	sky := New(apiKey)
+	result, err := sky.GetRoomByID(roomID)
 
 	if err != nil {
 		t.Error(err)
@@ -35,8 +35,8 @@ func TestSkyroom_GetRoomByID(t *testing.T) {
 }
 
 func TestSkyroom_GetRoomByName(t *testing.T) {
-	sky := New(APIKey)
-	result, err := sky.GetRoomByName(RoomName)
+	sky := New(apiKey)
+	result, err := sky.GetRoomByName(roomName)
 
 	if err != nil {
 		t.Error(err)
@@ -45,8 +45,8 @@ func TestSkyroom_GetRoomByName(t *testing.T) {
 }
 
 func TestSkyroom_GetRoomURL(t *testing.T) {
-	sky := New(APIKey)
-	result, err := sky.GetRoomURL(RoomID, "fa")
+	sky := New(apiKey)
+	result, err := sky.GetRoomURL(roomID, "fa")
 
 	if err != nil {
 		t.Error(err)
@@ -55,7 +55,7 @@ func TestSkyroom_GetRoomURL(t *testing.T) {
 }
 
 func TestSkyroom_CreateRoom(t *testing.T) {
-	sky := New(APIKey)
+	sky := New(apiKey)
 	result, err := sky.CreateRoom(CreateRoomRequest{
 		Name:  "test-create-room",
 		Title: "test room",
@@ -68,9 +68,9 @@ func TestSkyroom_CreateRoom(t *testing.T) {
 }
 
 func TestSkyroom_UpdateRoom(t *testing.T) {
-	sky := New(APIKey)
+	sky := New(apiKey)
 	err := sky.UpdateRoom(UpdateRoomRequest{
-		RoomID: RoomID,
+		RoomID: roomID,
 		Title:  "test room",
 	})
 
@@ -80,8 +80,8 @@ func TestSkyroom_UpdateRoom(t *testing.T) {
 }
 
 func TestSkyroom_DeleteRoom(t *testing.T) {
-	sky := New(APIKey)
-	err := sky.DeleteRoom(RoomToDelete)
+	sky := New(apiKey)
+	err := sky.DeleteRoom(roomToDelete)
 
 	if err != nil {
 		t.Error(err)
@@ -89,8 +89,8 @@ func TestSkyroom_DeleteRoom(t *testing.T) {
 }
 
 func TestSkyroom_GetRoomUsers(t *testing.T) {
-	sky := New(APIKey)
-	result, err := sky.GetRoomUsers(RoomID)
+	sky := New(apiKey)
+	result, err := sky.GetRoomUsers(roomID)
 
 	if err != nil {
 		t.Error(err)
@@ -100,13 +100,13 @@ func TestSkyroom_GetRoomUsers(t *testing.T) {
 }
 
 func TestSkyroom_AddRoomUsers(t *testing.T) {
-	sky := New(APIKey)
+	sky := New(apiKey)
 
 	users := []UserAccess{
-		{UserID: UserID, Access: 1},
+		{UserID: userID, Access: 1},
 	}
 
-	err := sky.AddRoomUsers(RoomID, users)
+	err := sky.AddRoomUsers(roomID, users)
 
 	if err != nil {
 		t.Error(err)
@@ -114,11 +114,11 @@ func TestSkyroom_AddRoomUsers(t *testing.T) {
 }
 
 func TestSkyroom_RemoveRoomUsers(t *testing.T) {
-	sky := New(APIKey)
+	sky := New(apiKey)
 
-	users := []int{UserID}
+	users := []int{userID}
 
-	err := sky.RemoveRoomUsers(RoomID, users)
+	err := sky.RemoveRoomUsers(roomID, users)
 
 	if err != nil {
 		t.Error(err)
@@ -126,11 +126,11 @@ func TestSkyroom_RemoveRoomUsers(t *testing.T) {
 }
 
 func TestSkyroom_UpdateRoomUser(t *testing.T) {
-	sky := New(APIKey)
+	sky := New(apiKey)
 
-	user := UserAccess{UserID: UserID, Access: 3}
+	user := UserAccess{UserID: userID, Access: 3}
 
-	err := sky.UpdateRoomUser(RoomID, user)
+	err := sky.UpdateRoomUser(roomID, user)
 
 	if err != nil {
 		t.Error(err)
