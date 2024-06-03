@@ -220,7 +220,7 @@ func (sky *Skyroom) AddUserRooms(userID int, rooms []UserRoomAccess) error {
 	return nil
 }
 
-func (sky *Skyroom) removeUserRooms(userID int, rooms []int) error {
+func (sky *Skyroom) RemoveUserRooms(userID int, rooms []int) error {
 	request := removeUserRoomsRequest{
 		UserID: userID,
 		Rooms:  rooms,
