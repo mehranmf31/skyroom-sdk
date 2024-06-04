@@ -117,9 +117,9 @@ users, err := sky.GetUsers()
 
 ### Get User By ID Or Username
 ```go
-user, err := sky.GetUserByID("name")
+userByID, err := sky.GetUserByID("name")
 
-user, err := sky.GetUserByUsername("name")
+userByUsername, err := sky.GetUserByUsername("name")
 ```
 
 ### Create User
